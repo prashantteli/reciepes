@@ -4,10 +4,13 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
+
 import { ReciepeCtx } from '../../App';
 import "holderjs";
 function ReciepeCard({ meal, showInstructions = false }) {
-  const { handleShow, setRreciepeDetails, getReciepeById } = useContext(ReciepeCtx);
+  const { handleShow, setRreciepeDetails, getReciepeById, setFilteredMeals,
+    handleClose, getMealsFitleredBy } = useContext(ReciepeCtx);
   const { strMealThumb, strMeal, strInstructions, strCategory, strArea } = meal;
   const getIngredients = (meal) => {
     let ingredients = {};
@@ -30,7 +33,18 @@ function ReciepeCard({ meal, showInstructions = false }) {
     if (!ingredients) {
       return '';
     }
-    return Object.keys(ingredients).map((i) => `${i} - ${ingredients[i]}`).join(', ');
+    return <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}> {Object.keys(ingredients).map((i) => (
+      <><Button variant="light" onClick={() => {
+        getMealsFitleredBy(i, 'i').then(res => {
+          setFilteredMeals(res.meals);
+          handleClose();
+        });
+      }}>
+        {i} <Badge bg="secondary">{ingredients[i]}</Badge>
+        <span className="visually-hidden">{ingredients[i]}</span>
+      </Button> {' '}
+      </>))
+    }</div>
   }
 
   return (
