@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 
 import { ReciepeCtx } from '../../App';
-import "holderjs";
+//import "holderjs";
 function ReciepeCard({ meal, showInstructions = false }) {
   const { handleShow, setRreciepeDetails, getReciepeById, setFilteredMeals,
     handleClose, getMealsFitleredBy } = useContext(ReciepeCtx);
