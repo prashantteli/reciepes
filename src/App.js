@@ -4,16 +4,15 @@ import { useEffect, useState, createContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 import Header from './components/header/Header';
 import SideBar from './components/sideBar/SideBar.jsx';
 import MainContent from './components/content/MainContent';
-import ReciepeCard from './components/cards/Card.jsx';
 import Loading from './components/loading/Loading.jsx';
 import { getCategories, getReciepesFitleredBy, getCountries, getRandomReciepe, getById } from './WebApi';
 import './App.scss';
+import { ViewReciepe } from './components/content/ViewReciepe.jsx';
 
 export const ReciepeCtx = createContext(null);
 
@@ -71,8 +70,8 @@ function App() {
 
   return (<>
     <ReciepeCtx.Provider value={{
-      randomReciepe, handleShow, handleClose, getMealsFitleredBy,
-      setRreciepeDetails, setFilteredMeals, sideBarLoading, getReciepeById
+      randomReciepe, handleShow, handleClose, getMealsFitleredBy, reciepeDetails,
+      setRreciepeDetails, setFilteredMeals, sideBarLoading, getReciepeById, show
     }}>
       <Header />
 
@@ -94,16 +93,7 @@ function App() {
           </Row>
         </Container>
       </section>
-      <Offcanvas show={show} onHide={handleClose} placement="end">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>{
-            reciepeDetails.title
-          }</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <ReciepeCard meal={reciepeDetails} showInstructions={true} />
-        </Offcanvas.Body>
-      </Offcanvas>
+      <ViewReciepe />
     </ReciepeCtx.Provider >
   </>
 
