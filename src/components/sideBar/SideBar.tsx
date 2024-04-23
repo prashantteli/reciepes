@@ -6,12 +6,12 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { ReciepeCtx } from '../../App';
+import { RecipeCtx } from '../../App';
 import Loading from '../loading/Loading';
 import { Recipe, resType, SideBarSectionProps } from '../../Types';
 
 export function SideBarSection({ list, index, heading }: SideBarSectionProps) {
-  const { getMealsFitleredBy, setFilteredMeals, sideBarLoading } = useContext(ReciepeCtx);
+  const { getMealsFitleredBy, setFilteredMeals, sideBarLoading } = useContext(RecipeCtx);
   return (<>
     <Row>
       <Col>

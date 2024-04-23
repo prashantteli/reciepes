@@ -9,50 +9,50 @@ import Header from './components/header/Header';
 import SideBar from './components/sideBar/SideBar';
 import MainContent from './components/content/MainContent';
 import Loading from './components/loading/Loading';
-import { getCategories, getReciepesFitleredBy, getCountries, getRandomReciepe, getById } from './WebApi';
+import { getCategories, getRecipesFitleredBy, getCountries, getRandomRecipe, getById } from './WebApi';
 import './App.scss';
-import { ViewReciepe } from './components/content/ViewReciepe';
+import { ViewRecipe } from './components/content/ViewRecipe';
 import { Recipe } from './Types.js';
 
-interface ReciepeCxtTypes {
-  randomReciepe: Recipe | undefined,
+interface RecipeCxtTypes {
+  randomRecipe: Recipe | undefined,
   handleShow: () => void,
   handleClose: () => void,
   getMealsFitleredBy: any,
-  reciepeDetails: any,
-  setRreciepeDetails: any,
+  recipeDetails: any,
+  setRrecipeDetails: any,
   setFilteredMeals: any,
   sideBarLoading: any,
-  getReciepeById: (id : string) => Promise<{meals : Recipe[]}>,
+  getRecipeById: (id : string) => Promise<{meals : Recipe[]}>,
   show: boolean,
 }
-export const ReciepeCtx = createContext<ReciepeCxtTypes>({} as ReciepeCxtTypes);
+export const RecipeCtx = createContext<RecipeCxtTypes>({} as RecipeCxtTypes);
 
 function getCategoriesData() {
   return getCategories();
 }
 
 function getMealsFitleredBy(filterBy: string, filter: string) {
-  return getReciepesFitleredBy(filterBy, filter);
+  return getRecipesFitleredBy(filterBy, filter);
 }
 
 function getCountriesData() {
   return getCountries();
 }
 
-function getRandomReciepesDate() {
-  return getRandomReciepe();
+function getRandomRecipesDate() {
+  return getRandomRecipe();
 }
 
-function getReciepeById(id: string) {
+function getRecipeById(id: string) {
   return getById(id);
 }
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [randomReciepe, setRandomrandomReciepe] = useState<Recipe>();
-  const [reciepeDetails, setRreciepeDetails] = useState('');
+  const [randomRecipe, setRandomrandomRecipe] = useState<Recipe>();
+  const [recipeDetails, setRrecipeDetails] = useState('');
   const [show, setShow] = useState(false);
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [mainContentLoading, setMainContentLoading] = useState(false);
@@ -71,8 +71,8 @@ function App() {
       setsideBarLoading(false);
     });
 
-    getRandomReciepesDate().then(res => {
-      setRandomrandomReciepe(res.meals[0]);
+    getRandomRecipesDate().then(res => {
+      setRandomrandomRecipe(res.meals[0]);
       setMainContentLoading(false);
     });
   }, []);
@@ -81,9 +81,9 @@ function App() {
   const handleShow = () => setShow(true);
 
   return (<>
-    <ReciepeCtx.Provider value={{
-      randomReciepe, handleShow, handleClose, getMealsFitleredBy, reciepeDetails,
-      setRreciepeDetails, setFilteredMeals, sideBarLoading, getReciepeById, show
+    <RecipeCtx.Provider value={{
+      randomRecipe, handleShow, handleClose, getMealsFitleredBy, recipeDetails,
+      setRrecipeDetails, setFilteredMeals, sideBarLoading, getRecipeById, show
     }}>
       <Header />
 
@@ -103,8 +103,8 @@ function App() {
           </Row>
         </Container>
       </section>
-      <ViewReciepe />
-    </ReciepeCtx.Provider >
+      <ViewRecipe />
+    </RecipeCtx.Provider >
   </>
 
   );

@@ -7,7 +7,7 @@ function Header() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top" >
       <Container>
-        <Navbar.Brand href="#home">Reciepes Store</Navbar.Brand>
+        <Navbar.Brand href="#home">Recipes Store</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Row>
           <Col>

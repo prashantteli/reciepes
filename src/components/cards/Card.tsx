@@ -5,12 +5,12 @@ import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
-import { ReciepeCardProps, Recipe } from '../../Types';
-import { ReciepeCtx } from '../../App';
+import { RecipeCardProps, Recipe } from '../../Types';
+import { RecipeCtx } from '../../App';
 //import "holderjs";
-function ReciepeCard({ meal, showInstructions = false }: ReciepeCardProps) {
-  const { handleShow, setRreciepeDetails, getReciepeById, setFilteredMeals,
-    handleClose, getMealsFitleredBy } = useContext(ReciepeCtx);
+function RecipeCard({ meal, showInstructions = false }: RecipeCardProps) {
+  const { handleShow, setRrecipeDetails, getRecipeById, setFilteredMeals,
+    handleClose, getMealsFitleredBy } = useContext(RecipeCtx);
   const { strMealThumb, strMeal, strInstructions, strCategory, strArea } = meal;
   const getIngredients : (meal: Recipe) => unknown = () => {
     let ingredients: {
@@ -72,12 +72,12 @@ function ReciepeCard({ meal, showInstructions = false }: ReciepeCardProps) {
         </ListGroup>
         {!showInstructions && <Card.Body>
           <Button variant="primary" onClick={() => {
-            getReciepeById(meal.idMeal).then(res => {
-              setRreciepeDetails(res.meals[0]);
+            getRecipeById(meal.idMeal).then(res => {
+              setRrecipeDetails(res.meals[0]);
               handleShow();
             })
 
-          }}>View Reciepe</Button>
+          }}>View Recipe</Button>
         </Card.Body>}
       </Card >
     </Col >
@@ -103,4 +103,4 @@ export function PlaceHolderCard() {
   </>);
 }
 
-export default ReciepeCard;
+export default RecipeCard;

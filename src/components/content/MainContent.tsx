@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import ReciepeCard from '../cards/Card';
-import { ReciepeCtx } from '../../App';
+import RecipeCard from '../cards/Card';
+import { RecipeCtx } from '../../App';
 import { SearchResultProps } from '../../Types';
-export function RandomReciepe() {
-  const { randomReciepe } = useContext(ReciepeCtx);
+export function RandomRecipe() {
+  const { randomRecipe } = useContext(RecipeCtx);
 
-  return (randomReciepe ?
-    <ReciepeCard meal={randomReciepe} />
-    : <div>No Reciepe for the day</div>
+  return (randomRecipe ?
+    <RecipeCard meal={randomRecipe} />
+    : <div>No Recipe for the day</div>
   );
 }
 
@@ -19,8 +19,8 @@ function SearchResult({ filteredMeals } : SearchResultProps) {
     <Container>
       <Row>
         {filteredMeals && filteredMeals.length > 0 ? filteredMeals.map((m, i) =>
-          <ReciepeCard meal={m} key={i} />) :
-          <RandomReciepe />}
+          <RecipeCard meal={m} key={i} />) :
+          <RandomRecipe />}
       </Row>
     </Container>
   </>

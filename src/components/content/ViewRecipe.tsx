@@ -1,19 +1,19 @@
 import { useContext } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import { ReciepeCtx } from '../../App';
-import ReciepeCard from '../cards/Card';
+import { RecipeCtx } from '../../App';
+import RecipeCard from '../cards/Card';
 
-export function ViewReciepe() {
-    const { handleClose, show, reciepeDetails } = useContext(ReciepeCtx)
+export function ViewRecipe() {
+    const { handleClose, show, recipeDetails } = useContext(RecipeCtx)
     return <Offcanvas show={show} onHide={handleClose} placement="end">
         <Offcanvas.Header closeButton>
             <Offcanvas.Title>{
-                reciepeDetails.title
+                recipeDetails.title
             }</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <ReciepeCard meal={reciepeDetails} showInstructions={true} />
+            <RecipeCard meal={recipeDetails} showInstructions={true} />
         </Offcanvas.Body>
     </Offcanvas>
 }

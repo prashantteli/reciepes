@@ -78,7 +78,7 @@ export type SearchResultProps = {
     filteredMeals : Recipe[],
 }
 
-export type ReciepeCardProps = {
+export type RecipeCardProps = {
     meal : Recipe,
     showInstructions ?: boolean
 }

@@ -23,12 +23,12 @@ export async function getCountries() {
     return await res.json();
 }
 
-export async function getRandomReciepe() {
+export async function getRandomRecipe() {
     const res = await fetch('https://www.themealdb.com/api/json/v1/1/random.php', options);
     return await res.json();
 }
 
-export async function getReciepesFitleredBy(filter:string, filterBy:string) {
+export async function getRecipesFitleredBy(filter:string, filterBy:string) {
     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?${filterBy}=${filter}`, options);
     return await res.json();
 }

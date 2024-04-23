@@ -1,4 +1,4 @@
-We are using "themealdb" api to get reciepe related data.
+We are using "themealdb" api to get recipe related data.
 Followings are the API URLs we will consume.
 https://www.themealdb.com/api.php
 
