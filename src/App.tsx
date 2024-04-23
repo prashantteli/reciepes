@@ -1,26 +1,38 @@
 
-import { useEffect, useState, createContext } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-
 import Header from './components/header/Header';
-import SideBar from './components/sideBar/SideBar.jsx';
+import SideBar from './components/sideBar/SideBar';
 import MainContent from './components/content/MainContent';
-import Loading from './components/loading/Loading.jsx';
+import Loading from './components/loading/Loading';
 import { getCategories, getReciepesFitleredBy, getCountries, getRandomReciepe, getById } from './WebApi';
 import './App.scss';
-import { ViewReciepe } from './components/content/ViewReciepe.jsx';
+import { ViewReciepe } from './components/content/ViewReciepe';
+import { Recipe } from './Types.js';
 
-export const ReciepeCtx = createContext(null);
+interface ReciepeCxtTypes {
+  randomReciepe: Recipe | undefined,
+  handleShow: () => void,
+  handleClose: () => void,
+  getMealsFitleredBy: any,
+  reciepeDetails: any,
+  setRreciepeDetails: any,
+  setFilteredMeals: any,
+  sideBarLoading: any,
+  getReciepeById: (id : string) => Promise<{meals : Recipe[]}>,
+  show: boolean,
+}
+export const ReciepeCtx = createContext<ReciepeCxtTypes>({} as ReciepeCxtTypes);
 
 function getCategoriesData() {
   return getCategories();
 }
 
-function getMealsFitleredBy(filterBy, filter) {
+function getMealsFitleredBy(filterBy: string, filter: string) {
   return getReciepesFitleredBy(filterBy, filter);
 }
 
@@ -32,14 +44,14 @@ function getRandomReciepesDate() {
   return getRandomReciepe();
 }
 
-function getReciepeById(id) {
+function getReciepeById(id: string) {
   return getById(id);
 }
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [randomReciepe, setRandomrandomReciepe] = useState([]);
+  const [randomReciepe, setRandomrandomReciepe] = useState<Recipe>();
   const [reciepeDetails, setRreciepeDetails] = useState('');
   const [show, setShow] = useState(false);
   const [filteredMeals, setFilteredMeals] = useState([]);
@@ -53,7 +65,7 @@ function App() {
       setCategories(res.categories);
       setsideBarLoading(false);
     });
-    
+
     getCountriesData().then(res => {
       setCountries(res.meals);
       setsideBarLoading(false);
@@ -79,15 +91,13 @@ function App() {
         <Container>
           <Row>
             <Col md="8">
-              {mainContentLoading ? <Loading showButton={true}/>
+              {mainContentLoading ? <Loading showButton={true} />
                 : <MainContent filteredMeals={filteredMeals} />}
             </Col>
             <Col md="4">
               <SideBar>
-                <SideBar.Section list={countries} index="strArea" heading="Countries"
-                  getMealsFitleredBy={getMealsFitleredBy} />
-                <SideBar.Section list={categories} index="strCategory" heading="Categories"
-                  getMealsFitleredBy={getMealsFitleredBy} />
+                <SideBar.Section list={countries} index="strArea" heading="Countries" />
+                <SideBar.Section list={categories} index="strCategory" heading="Categories" />
               </SideBar>
             </Col>
           </Row>

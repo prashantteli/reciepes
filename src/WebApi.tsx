@@ -1,5 +1,6 @@
+import { optionType } from "./Types";
 
-const options = {
+const options : optionType = {
     mode: 'cors',
     type: 'GET',
     headers: {
@@ -11,7 +12,7 @@ export async function getCategories() {
     return await res.json();
 }
 
-export async function getIngredients() {
+export async function getIngredients() : Promise<Response> {
     const res = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list', options);
     return await res.json();
 }
@@ -27,12 +28,12 @@ export async function getRandomReciepe() {
     return await res.json();
 }
 
-export async function getReciepesFitleredBy(filter, filterBy) {
+export async function getReciepesFitleredBy(filter:string, filterBy:string) {
     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?${filterBy}=${filter}`, options);
     return await res.json();
 }
 
-export async function getById(id) {
+export async function getById(id : string) {
     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`, options);
     return await res.json();
 }

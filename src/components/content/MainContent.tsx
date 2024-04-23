@@ -3,23 +3,23 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import ReciepeCard from '../cards/Card';
 import { ReciepeCtx } from '../../App';
-
+import { SearchResultProps } from '../../Types';
 export function RandomReciepe() {
   const { randomReciepe } = useContext(ReciepeCtx);
 
   return (randomReciepe ?
     <ReciepeCard meal={randomReciepe} />
-    : 'No Reciepe for the day'
+    : <div>No Reciepe for the day</div>
   );
 }
 
-function SearchResult({ filteredMeals }) {
+function SearchResult({ filteredMeals } : SearchResultProps) {
 
   return (<>
     <Container>
       <Row>
-        {filteredMeals && filteredMeals.length > 0 ? filteredMeals.map((m, i) => 
-        <ReciepeCard meal={m} key={i} />) :
+        {filteredMeals && filteredMeals.length > 0 ? filteredMeals.map((m, i) =>
+          <ReciepeCard meal={m} key={i} />) :
           <RandomReciepe />}
       </Row>
     </Container>

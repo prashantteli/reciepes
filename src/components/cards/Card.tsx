@@ -5,27 +5,32 @@ import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
-
+import { ReciepeCardProps, Recipe } from '../../Types';
 import { ReciepeCtx } from '../../App';
 //import "holderjs";
-function ReciepeCard({ meal, showInstructions = false }) {
+function ReciepeCard({ meal, showInstructions = false }: ReciepeCardProps) {
   const { handleShow, setRreciepeDetails, getReciepeById, setFilteredMeals,
     handleClose, getMealsFitleredBy } = useContext(ReciepeCtx);
   const { strMealThumb, strMeal, strInstructions, strCategory, strArea } = meal;
-  const getIngredients = (meal) => {
-    let ingredients = {};
+  const getIngredients : (meal: Recipe) => unknown = () => {
+    let ingredients: {
+      name?: string | true | Date
+    } = {};
     for (let i = 1; i <= 20; i++) {
-      let name = meal['strIngredient' + i];
-      let measure = meal['strMeasure' + i];
-      if (name && measure) {
-        ingredients[name] = measure;
+      if (meal['strIngredient' + i as keyof typeof meal] && meal['strIngredient' + i as keyof typeof meal]) {
+        let name = meal['strIngredient' + i as keyof typeof meal];
+        let measure = meal['strIngredient' + i as keyof typeof meal];
+        if (name && measure) {
+          ingredients[name as keyof typeof ingredients] = measure;
+        }
       }
+
 
     }
     return ingredients;
   };
 
-  const showIngredients = (meal) => {
+  const showIngredients : (meal : Recipe) => JSX.Element | '' = (meal : Recipe) => {
     if (!meal) {
       return '';
     }
@@ -35,13 +40,13 @@ function ReciepeCard({ meal, showInstructions = false }) {
     }
     return <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}> {Object.keys(ingredients).map((i) => (
       <><Button variant="light" onClick={() => {
-        getMealsFitleredBy(i, 'i').then(res => {
+        getMealsFitleredBy(i, 'i').then((res: { meals: any; }) => {
           setFilteredMeals(res.meals);
           handleClose();
         });
       }}>
-        {i} <Badge bg="secondary">{ingredients[i]}</Badge>
-        <span className="visually-hidden">{ingredients[i]}</span>
+        {i} <Badge bg="secondary">{ingredients[i as keyof typeof ingredients]}</Badge>
+        <span className="visually-hidden">{ingredients[i as keyof typeof ingredients]}</span>
       </Button> {' '}
       </>))
     }</div>
